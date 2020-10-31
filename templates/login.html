@@ -1,0 +1,28 @@
+{% extends 'base1.html' %}
+{% block body_block %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+ <form name="login_form" method="post">
+        {% csrf_token%}
+        <table class="table">
+            <tr>
+                <td><label>Username</label></td>
+                <td><input name="username" type="text"></td>
+            </tr>
+            <tr>
+                <td><label>Password</label></td>
+                <td><input name="password" type="password"></td>
+            </tr>
+        </table>
+        <input type="submit" value="Submit" />
+      <a href="password_reset/">Forgot Password</a>
+    </form>
+</body>
+{% endblock %}
+
+
+
