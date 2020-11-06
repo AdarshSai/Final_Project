@@ -18,5 +18,13 @@ urlpatterns = [
     path('upload/', views.upload, name='views.upload'),
     path('ml/',views.heart_Ml_Pred, name='ml'),
     path('about_us/',TemplateView.as_view(template_name='about_us1.html'),name='about_us'),
+    path('bot',TemplateView.as_view(template_name='bot/in.html'),name='bot'),
+    path(r'login/', views.user_login, name='login'),
+    path(r'logout/', views.user_logout, name='logout'),
+    path(r'home/', views.home, name='home'),
+    path(r'about/', views.about, name='about'),
+    path(r'regi/', views.register, name='register'),
+    path(r'register/patient', views.registerpatient, name='register_patient'),
+    path(r'register/volunteer', views.registervolunteer, name='register_volunteer'),
 ]
 

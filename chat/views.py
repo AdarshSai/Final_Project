@@ -1,26 +1,22 @@
-import os
-from chat.models import Chat, Volunteer, Patient, Nurse
-import speech_recognition as sr
-from django.http import HttpResponse
-from django.http import JsonResponse
-from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-import matplotlib.pyplot as plt
-import matplotlib.pyplot as plt1
-from textblob import TextBlob
-from django.http import HttpResponse, HttpResponseRedirect
-
-from .models import Volunteer, Nurse
-from json import dumps
-import datetime
-from django.shortcuts import get_list_or_404, get_object_or_404
-from django.shortcuts import render, redirect
-# from .forms import OrderForm,InterestForm, RegisterForm
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from django.urls import reverse
+import base64
 import io
-import urllib, base64
+import os
+import urllib
+import matplotlib.pyplot as plt
+import speech_recognition as sr
+# from .forms import OrderForm,InterestForm, RegisterForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from textblob import TextBlob
+
+from chat.models import Chat, Patient
+from .forms import PatientRegisterForm, VolunteerRegisterForm
+from .models import Volunteer, Nurse
 
 
 def home(request):
@@ -100,13 +96,100 @@ def heart_Ml_Pred(request):
     return render(request, 'Heart_Disease_Prediction.html')
 
 
-def patient_page(request,user_id):
+def patient_page(request, user_id):
     patient = Patient.objects.all().filter(pat_id=user_id)
     print(patient[0].pat_id)
     return render(request, 'Patient1.html', {'patient': patient})
-def volunteer_page(request,user_id):
-    volunteer=Volunteer.objects.all().filter(vol_id=user_id)
-    return render(request,'Volunteer.html',{'volunteer':volunteer})
-def nurse_page(request,user_id):
-    nurse=Nurse.objects.all().filter(nurse_id=user_id)
-    return render(request,'Nurse.html',{'nurse':nurse})
+
+
+def volunteer_page(request, user_id):
+    volunteer = Volunteer.objects.all().filter(vol_id=user_id)
+    return render(request, 'Volunteer.html', {'volunteer': volunteer})
+
+
+def nurse_page(request, user_id):
+    nurse = Nurse.objects.all().filter(nurse_id=user_id)
+    return render(request, 'Nurse.html', {'nurse': nurse})
+
+
+def question_ans(request):
+    import json
+    datalist = []
+    with open(r'C:\Users\Adarsh\Documents\portfolio-project\prac.txt') as data_file:
+        for jsonObj in data_file:
+            # print(jsonObj)
+            data = json.loads(jsonObj)
+            datalist.append(data)
+    for student in datalist:
+        print(student["tags"], student["answer"], student["answer_author"], student["question"],
+              student["question_text"])
+
+    return render(request, 'account/question_ans.html', {'data_list': datalist})
+
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if request.session.test_cookie_worked():
+            request.session.delete_test_cookie()
+            if user:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponseRedirect(reverse('chat:base'))
+                else:
+                    return HttpResponse('Your account is disabled.')
+            else:
+                return HttpResponse('Invalid login details.')
+        else:
+            return HttpResponse("Please enable cookies to continue")
+    else:
+        request.session.set_test_cookie()
+        return render(request, 'login.html')
+
+
+@login_required(login_url='chat:login')
+def user_logout(request):
+    request.session.clear()
+    return HttpResponseRedirect(reverse('chat:base'))
+
+
+def registerpatient(request):
+    if request.method == 'POST':
+        form = PatientRegisterForm(request.POST, request.FILES)
+        if form.is_valid():
+            patient = form.save(commit=False)
+            patient.set_password(patient.password)
+            patient.save()
+            msg = ' Patient registration successfully.'
+            return render(request, 'message.html', {'msg': msg})
+    else:
+        form = PatientRegisterForm()
+    return render(request, 'registration/registerPatient.html', {'form': form})
+
+
+def registervolunteer(request):
+    if request.method == 'POST':
+        form = VolunteerRegisterForm(request.POST, request.FILES)
+        if form.is_valid():
+            volunteer = form.save(commit=False)
+            volunteer.set_password(volunteer.password)
+            volunteer.save()
+            msg = ' volunteer registration successfully.'
+            return render(request, 'message.html', {'msg': msg})
+    else:
+        form = VolunteerRegisterForm()
+    return render(request, 'registration/registerVolunteer.html', {'form': form})
+
+
+def register(request):
+    return render(request, 'registration/register.html')
+
+
+def base(request):
+    return render(request, 'base.html')
+
+
+def about(request):
+    return render(request, 'about_us1.html')
