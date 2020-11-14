@@ -3,11 +3,6 @@ Django app to allow users to convert their speech into text and send that text a
 
 # Commands to Setup the environment and run the server
 
-> git clone https://github.com/ehtisham91/Django-Speech-to-text-Chat.git
-
-> cd Django-Speech-to-text-Chat
-
-> virtualenv venv
 
 > source venv/bin/activate
 
@@ -17,7 +12,6 @@ Django app to allow users to convert their speech into text and send that text a
 
 
 # Helpful Link
-https://github.com/streamproc/MediaStreamRecorder/blob/master/demos/audio-recorder.html
 
 I used it for recording audio in the browser as uncompressed pcm audio in .wav containers.
 
