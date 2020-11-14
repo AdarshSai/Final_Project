@@ -22,9 +22,13 @@ urlpatterns = [
     path(r'login/', views.user_login, name='login'),
     path(r'logout/', views.user_logout, name='logout'),
     path(r'home/', views.home, name='home'),
-    path(r'about/', views.about, name='about'),
+    path(r'about/', TemplateView.as_view(template_name='faq1.html'), name='about'),
     path(r'regi/', views.register, name='register'),
-    path(r'register/patient', views.registerpatient, name='register_patient'),
-    path(r'register/volunteer', views.registervolunteer, name='register_volunteer'),
+    path(r'register_patient', views.registerpatient, name='register_patient'),
+    path(r'register_volunteer', views.registervolunteer, name='register_volunteer'),
+    path(r'bmi',TemplateView.as_view(template_name='bmi.html'),name='bmi'),
+    path(r'eta',TemplateView.as_view(template_name='eta/example.html'),name='eta'),
+    path(r'faq',views.load_json_table_format,name='faq'),
+    path(r'life_expectancy',TemplateView.as_view(template_name='Life_Expectancy.html'),name='life_expectancy')
 ]
 

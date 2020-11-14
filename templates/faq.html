@@ -1,0 +1,19 @@
+<body>
+{{ d }}
+<h1>hello</h1>
+{% if d %}
+
+<table>
+    {% for id,firstName,lastName in d %}
+{{ d }}
+
+    <tr>
+        <td>{{ id }}</td>
+        <td>{{ firstName}}</td>
+        <td>{{ lastName }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% endif %}
+</body>

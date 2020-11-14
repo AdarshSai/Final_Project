@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="utf-8">
+    <title>Life Expectancy </title>
+    <meta name="description" content="Pure CSS gauge">
+    <meta name="author" content="Otto Salminen">
+    <link rel="stylesheet" href="{% static 'chat/css/gauge.min.css' %}">
+    <link rel="stylesheet" href="{% static 'chat/css/gauge-glossy.css' %}">
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #d8d8d8;
+        }
+
+        .gauge-example {
+            display: flex;
+            flex-wrap: wrap;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .gauge-example>div {
+            background-color: #ffffff;
+            width: 48%;
+            min-width: 350px;
+            margin: 5px;
+            text-align: center;
+            padding-top: 40px;
+            line-height: 25px;
+            font-size: 14px;
+        }
+
+        .gauge-example>.gauge-description {
+            padding: 3em;
+            text-align: left;
+        }
+
+        .gauge-example>.gauge-description pre {
+            font-size: 12px;
+        }
+
+        .gauge {
+            margin: auto;
+        }
+
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #c2c2c2;
+            text-align: center;
+            padding: 0.5em;
+            border-top: solid 1px #aeaeae;
+        }
+
+        footer a {
+            color: #0366d6;
+        }
+   
+/* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+</style>
+</head>
+
+<body>
+    <div class="gauge-example">
+        
+        <div class="gauge-glossy">
+            <h1>Expected Days of Survival</h1>
+
+            <!-- Demo gauge 2-->
+            <div id="demoGauge2" class="gauge" style="
+                --gauge-bg: #088478;
+                --gauge-value:0;
+                --gauge-display-value:50;
+                width:25vw;
+                height:25vw;">
+
+                <div class="ticks">
+                    <div class="tithe" style="--gauge-tithe-tick:1;"></div>
+                    <div class="tithe" style="--gauge-tithe-tick:2;"></div>
+                    <div class="tithe" style="--gauge-tithe-tick:3;"></div>
+                    <div class="tithe" style="--gauge-tithe-tick:4;"></div>
+                    <div class="tithe" style="--gauge-tithe-tick:6;"></div>
+                    <div class="tithe" style="--gauge-tithe-tick:7;"></div>
+                    <div class="tithe" style="--gauge-tithe-tick:8;"></div>
+                    <div class="tithe" style="--gauge-tithe-tick:9;"></div>
+                    <div class="min"></div>
+                    <div class="mid"></div>
+                    <div class="max"></div>
+                </div>
+                <div class="tick-circle"></div>
+
+                <div class="needle">
+                    <div class="needle-head"></div>
+                </div>
+                <div class="labels">
+                    <div class="value-label"></div>
+                </div>
+            </div>
+            <p>
+                <label for="points">Days range 0-150</label><br />
+                <input type="range" id="gaugeValue-demoGauge2" name="gaugeValue" min="0" max="150" value="50"
+                    onInput="updateGauge('demoGauge2', 0, 150);" onChange="updateGauge('demoGauge2', 0, 150);" />
+            </p>
+			<h3> Anticipated Complications:<span class="popuptext" id="myPopup">?</span></h3>
+
+       
+        <script type="text/javascript">
+            //<![CDATA[
+            function updateGauge(id, min, max) {
+                const newGaugeDisplayValue = document.getElementById("gaugeValue-" + id).value;
+                const newGaugeValue = Math.floor(((newGaugeDisplayValue - min) / (max - min)) * 100);
+                document.getElementById(id).style.setProperty('--gauge-display-value', newGaugeDisplayValue);
+                document.getElementById(id).style.setProperty('--gauge-value', newGaugeValue);
+				if(newGaugeDisplayValue<=50)
+					document.getElementById("myPopup").innerText="May get fever";
+				if(newGaugeDisplayValue>=50 && newGaugeDisplayValue<=100)
+					document.getElementById("myPopup").innerText="May get caugh";
+				
+			}
+        //]]>
+        </script>
+</body>
+
+</html>

@@ -71,6 +71,9 @@
                         <a href="/accounts/signup/">
                             <button type="button" class="btn navbar-btn btn-success">Register</button>
                         </a>
+                       <li ><a href = "{% url 'chat:register_patient' %}">Register Here as patient</a></li>
+    <li ><a href = "{% url 'chat:register_volunteer' %}">Register Here as volunteer</a></li>
+
                     {% else %}
                         <a href="/accounts/logout/">
                             <button type="button" class="btn btn-danger navbar-btn">Log out</button>

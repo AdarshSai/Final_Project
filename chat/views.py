@@ -1,6 +1,7 @@
 import base64
 import io
 import os
+import json
 import urllib
 import matplotlib.pyplot as plt
 import speech_recognition as sr
@@ -8,15 +9,21 @@ import speech_recognition as sr
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.serializers import json
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse
 from textblob import TextBlob
+import json
 
-from chat.models import Chat, Patient
+from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
+from django.template.loader import render_to_string
+
 from .forms import PatientRegisterForm, VolunteerRegisterForm
-from .models import Volunteer, Nurse
+from .models import Volunteer, Nurse,Chat,health_habbits,Patient
 
 
 def home(request):
@@ -98,8 +105,9 @@ def heart_Ml_Pred(request):
 
 def patient_page(request, user_id):
     patient = Patient.objects.all().filter(pat_id=user_id)
+    health_details=health_habbits.objects.all().filter(hid=user_id)
     print(patient[0].pat_id)
-    return render(request, 'Patient1.html', {'patient': patient})
+    return render(request, 'Patient1.html', {'patient': patient,'health':health_details})
 
 
 def volunteer_page(request, user_id):
@@ -193,3 +201,14 @@ def base(request):
 
 def about(request):
     return render(request, 'about_us1.html')
+with open('C:/Python_speech/Django-Speech-to-text-Chat/templates/bot/a1.json') as d:
+        print (d)
+        data=json.load(d)
+
+def load_json_table_format(request):
+
+
+    print(data)
+   # html = render_to_string()
+    return render(request,'faq.html', {"a":"b"})
+    #return HttpResponse({'d':data}, 'faq.html', content_type="application/html")

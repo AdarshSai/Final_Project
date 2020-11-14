@@ -107,3 +107,21 @@ class Nurse(models.Model):
     education=models.CharField(max_length=2000)
     complex_cases_handled=models.CharField(max_length=2000)
     availability=models.DateTimeField()
+class health_habbits(models.Model):
+    classofpatients=[('A','Good'),('B','Historical Complications'),('C', 'Disaster due to unexpected situations')]
+    TRUE_FALSE_CHOICES = (
+        (True, 'Yes'),
+        (False, 'No')
+    )
+    hid=models.ForeignKey(Patient,on_delete=models.CASCADE)
+    Life_expectancy=models.IntegerField(default=10)
+    Alcohol_percentage=models.IntegerField(default=10)
+    expenditure_income=models.IntegerField(default=10)
+    STIs=models.BooleanField(choices=TRUE_FALSE_CHOICES)
+    BMI=models.IntegerField(default=10)
+    Polio=models.BooleanField(choices=TRUE_FALSE_CHOICES)
+    Total_expenditure=models.IntegerField(default=10)
+    Class=models.CharField(choices=classofpatients,default="",max_length=300)
+    Adult_smoking=models.BooleanField(choices=TRUE_FALSE_CHOICES)
+    Physical_inactivity=models.BooleanField(choices=TRUE_FALSE_CHOICES)
+
