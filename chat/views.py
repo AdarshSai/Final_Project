@@ -201,14 +201,12 @@ def base(request):
 
 def about(request):
     return render(request, 'about_us1.html')
-with open('C:/Python_speech/Django-Speech-to-text-Chat/templates/bot/a1.json') as d:
-        print (d)
-        data=json.load(d)
+
 
 def load_json_table_format(request):
-
-
-    print(data)
+    with open(r'C:\Users\neera\Desktop\Final_Project\templates\bot\New_one.json', 'r', encoding='utf-8') as data_file:    
+        data = json.load(data_file)
+    # pprint(data)
    # html = render_to_string()
-    return render(request,'faq.html', {"a":"b"})
+    return render(request,'faq.html', {"d":data})
     #return HttpResponse({'d':data}, 'faq.html', content_type="application/html")
