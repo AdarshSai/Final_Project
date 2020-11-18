@@ -1,19 +1,17 @@
 <body>
-{{ d }}
-<h1>hello</h1>
+<center><h1>FAQ's</h1></center>
 {% if d %}
-
+<center>
 <table>
-    {% for id,firstName,lastName in d %}
-{{ d }}
-
+    {% for ele in d %}
+    {% if "question_text" in ele.keys and "answer" in ele.keys %}
     <tr>
-        <td>{{ id }}</td>
-        <td>{{ firstName}}</td>
-        <td>{{ lastName }}</td>
+        <td style="width:400px;"><b>Question: </b>{{ ele.question_text }}</td>
+        <td style="width:400px;"><b>Answer:</b> {{ ele.answer }}</td>
     </tr>
+    {% endif %}
     {% endfor %}
-
 </table>
+</center>
 {% endif %}
 </body>
