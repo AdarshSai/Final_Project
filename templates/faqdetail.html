@@ -1,0 +1,32 @@
+<head>
+    <style>
+        table.faqtable{
+            border:2px;
+        }
+        tr,td,th{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    {% if d %}
+    <center>
+    <table class="faqtable">
+        <tr>
+        <th>Question</th>
+        <th>Answer</th>
+        <th>author</th>
+        </tr>
+        {% for ele in d %}
+        {% if "question_text" in ele.keys and "answer" in ele.keys %}
+        <tr>
+            <td style="width:400px;">{{ ele.question_text }}</td>
+            <td style="width:400px;">{{ ele.answer }}</td>
+            <td style="width:400px;">{{ ele.answer_author }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    </center>
+    {% endif %}
+</body>

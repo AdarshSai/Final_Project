@@ -17,7 +17,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from textblob import TextBlob
 import json
-
+import requests
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.template.loader import render_to_string
@@ -202,11 +202,22 @@ def base(request):
 def about(request):
     return render(request, 'about_us1.html')
 
+def tagdetail(request):
+    if request.method == 'POST':
+        txtdata = request.POST.get('texfld')
+        with open(r'C:\Users\neera\Desktop\Final_Project\templates\bot\New_one.json', 'r', encoding='utf-8') as data_file:    
+            data = json.load(data_file)
+        tag_list=[]
+        for elem in data:
+            if len(elem["tags"])>0:
+                if txtdata in elem["tags"][0]:
+                    tag_dict={}
+                    tag_dict["question_text"]= elem["question_text"]
+                    tag_dict["answer"]= elem["answer"]
+                    tag_dict["answer_author"]= elem["answer_author"]
+                    tag_list.append(tag_dict)
+    return render(request, 'faqdetail.html',{'d':tag_list})
 
 def load_json_table_format(request):
-    with open(r'C:\Users\neera\Desktop\Final_Project\templates\bot\New_one.json', 'r', encoding='utf-8') as data_file:    
-        data = json.load(data_file)
-    # pprint(data)
-   # html = render_to_string()
-    return render(request,'faq.html', {"d":data})
+    return render(request,'faq.html')
     #return HttpResponse({'d':data}, 'faq.html', content_type="application/html")

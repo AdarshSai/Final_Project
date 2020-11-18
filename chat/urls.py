@@ -29,6 +29,7 @@ urlpatterns = [
     path(r'bmi',TemplateView.as_view(template_name='bmi.html'),name='bmi'),
     path(r'eta',TemplateView.as_view(template_name='eta/example.html'),name='eta'),
     path(r'faq',views.load_json_table_format,name='faq'),
+    path(r'faqdetail',views.tagdetail,name='faqdetail'),
     path(r'life_expectancy',TemplateView.as_view(template_name='Life_Expectancy.html'),name='life_expectancy')
 ]
 
