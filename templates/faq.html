@@ -1,17 +1,22 @@
+<head>
+    <style>
+        a{
+            color: black;
+            display: inline;
+            margin-right: 10px;
+            font-family: monospace;
+        }
+        a:hover {
+  background-color: rgb(102, 165, 224);
+}
+    </style>
+</head>
 <body>
-<center><h1>FAQ's</h1></center>
-{% if d %}
-<center>
-<table>
-    {% for ele in d %}
-    {% if "question_text" in ele.keys and "answer" in ele.keys %}
-    <tr>
-        <td style="width:400px;"><b>Question: </b>{{ ele.question_text }}</td>
-        <td style="width:400px;"><b>Answer:</b> {{ ele.answer }}</td>
-    </tr>
-    {% endif %}
-    {% endfor %}
-</table>
+<center><h1>FAQ's</h1>
+<form name ="faqdetailname" action="faqdetail" method="POST">
+    {% csrf_token %}
+    <input style="width: 300px;" type="text" name="texfld" placeholder="Enter your ailment"/>
+    <input type="submit" value="submit"/>
+</form>
 </center>
-{% endif %}
 </body>

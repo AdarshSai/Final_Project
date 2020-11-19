@@ -13,6 +13,5 @@ requests-oauthlib==1.2.0
 SpeechRecognition==3.8.1
 sqlparse==0.3.0
 urllib3==1.24.3
-
 matplotlib~=3.3.2
 textblob~=0.15.3
